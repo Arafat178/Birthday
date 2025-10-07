@@ -1,5 +1,6 @@
-/* General Styling - Softened Palette and Elegant Font */
+/* --- 1. General Styling - Softened Palette and Elegant Font --- */
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Great+Vibes&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 * {
     margin: 0;
@@ -10,56 +11,75 @@
 body, html {
     width: 100%;
     height: 100%;
-    /* Allow scroll after content reveal if necessary, but keep for full-screen feel */
     overflow: hidden; 
-    font-family: 'Cormorant Garamond', serif; /* Elegant serif font */
+    font-family: 'Cormorant Garamond', serif; 
     background-color: #fce4ec; /* Very soft pink/blush initial background */
+    transition: background-color 2s ease-in-out;
 }
 
-/* Surprise Box Styling - Deeper, Romantic Tones */
+body.revealed {
+    background-color: #ffb6c1; /* Soft pink after reveal */
+}
+
+/* --- 2. Surprise Box Styling - Animated Heart Pulse --- */
 .gift-box {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 220px; /* Slightly larger */
+    width: 220px; 
     height: 220px;
-    background-color: #a0522d; /* Soft, warm brown/sienna for the box */
+    background-color: #a0522d; /* Soft sienna */
     cursor: pointer;
-    /* Smoother transition */
     transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
-    animation: gentle-pulse 3s infinite; /* Renamed animation for a softer feel */
-    border-radius: 8px; /* Slightly rounded edges */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    animation: heart-pulse 2s infinite ease-in-out; /* Heartbeat pulse */
+    border-radius: 15px; 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    z-index: 20; /* Ensure it's on top */
 }
 
 .gift-box:hover {
-    transform: translate(-50%, -50%) scale(1.15) rotate(-3deg); /* More dramatic, gentle hover */
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    transform: translate(-50%, -50%) scale(1.15) rotate(-3deg); 
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
 }
 
 .gift-lid {
     position: absolute;
-    top: -30px; /* Adjusted position */
+    top: -30px; 
     left: -10px;
-    width: 240px; /* Matching new box width + offset */
+    width: 240px; 
     height: 40px;
-    background-color: #8b4513; /* Darker, richer brown for the lid */
+    background-color: #8b4513; 
     border-radius: 5px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    transition: all 1s ease-in-out;
+    transform-origin: bottom; /* Crucial for lid opening effect */
+}
+
+/* Lid opening animation class (added by JS) */
+.gift-lid-open {
+    transform: translate(-50%, -200%) rotateZ(30deg); /* Lifts up and rotates away */
+    opacity: 0;
+    transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Bouncy exit */
 }
 
 .gift-ribbon-v, .gift-ribbon-h {
-    background-color: #ffb6c1; /* Light Pink/Rose Ribbon - Romantic */
+    background-color: #ffb6c1; /* Light Rose Ribbon */
     position: absolute;
-    box-shadow: 0 0 10px rgba(255, 182, 193, 0.7); /* Subtle glow */
+    box-shadow: 0 0 10px rgba(255, 182, 193, 0.7);
+    transition: opacity 0.5s ease-out 0.5s;
+}
+
+/* Ribbons disappear animation class (added by JS) */
+.ribbon-released {
+    opacity: 0;
 }
 
 .gift-ribbon-v {
     top: -30px;
     left: 50%;
     transform: translateX(-50%);
-    width: 25px; /* Slightly thinner ribbon */
+    width: 25px; 
     height: 250px;
 }
 
@@ -76,15 +96,16 @@ body, html {
     bottom: -60px;
     width: 100%;
     text-align: center;
-    font-family: 'Great Vibes', cursive; /* Elegant script font */
-    font-size: 2rem; /* Larger and more inviting */
-    color: #4a2334; /* Deep, romantic burgundy/maroon */
+    font-family: 'Great Vibes', cursive;
+    font-size: 2rem; 
+    color: #4a2334; 
     animation: float-text 2s ease-in-out infinite alternate;
 }
 
-@keyframes gentle-pulse {
+@keyframes heart-pulse {
     0% { transform: translate(-50%, -50%) scale(1); }
-    50% { transform: translate(-50%, -50%) scale(1.03); } /* Softer scale up */
+    30% { transform: translate(-50%, -50%) scale(1.04); }
+    60% { transform: translate(-50%, -50%) scale(0.98); }
     100% { transform: translate(-50%, -50%) scale(1); }
 }
 
@@ -93,44 +114,43 @@ body, html {
     to { transform: translateY(-5px); }
 }
 
-/* Main Content Styling - Ethereal and Warm */
+/* --- 3. Main Content Styling - Ethereal and Warm --- */
 #main-content {
-    display: flex;
+    display: none; /* Controlled by JS initially */
     justify-content: center;
     align-items: center;
     text-align: center;
     width: 100%;
     height: 100%;
-    /* Soft, ethereal gradient */
-    background: linear-gradient(135deg, #ffc0cb 0%, #ff7f7f 100%); /* Pink to Soft Red */
+    background: linear-gradient(135deg, #ffc0cb 0%, #ff7f7f 100%); 
     color: white;
-    transition: opacity 1.5s ease-in-out; /* Slower, more deliberate fade */
+    transition: opacity 1.5s ease-in-out; 
 }
 
 .hidden {
     opacity: 0;
     pointer-events: none;
-    /* Changed from display: none to visibility: hidden for smoother transition potential */
     visibility: hidden; 
 }
 
 .wish-text {
     z-index: 10;
-    padding: 40px; /* More padding */
-    background: rgba(255, 255, 255, 0.2); /* Very light, semi-transparent background */
-    backdrop-filter: blur(5px); /* Soft blur effect */
+    padding: 40px; 
+    background: rgba(255, 255, 255, 0.2); 
+    backdrop-filter: blur(5px); 
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    animation: fadeInText 2s ease-in-out forwards;
+    border: 1px solid rgba(255, 255, 255, 0.5); /* Delicate border */
+    animation: fadeInText 2s ease-in-out forwards, softGlow 4s infinite ease-in-out; /* Pulsing glow */
 }
 
 .wish-text h1 {
-    font-family: 'Great Vibes', cursive; /* Main script font for impact */
-    font-size: 4rem; /* Larger */
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Softer text shadow */
-    animation: popIn 1.5s 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; /* Bouncier, slower intro */
+    font-family: 'Great Vibes', cursive; 
+    font-size: 4rem; 
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); 
+    animation: popIn 1.5s 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; 
     opacity: 0;
-    color: #4a2334; /* Deep, romantic color */
+    color: #4a2334; 
 }
 
 .wish-text h2 {
@@ -142,25 +162,27 @@ body, html {
 }
 
 .wish-text p {
-    font-size: 1.4rem; /* Larger body text */
+    font-size: 1.4rem; 
     line-height: 1.8;
     max-width: 700px;
     margin: 0 auto;
     animation: popIn 1.5s 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     opacity: 0;
-    color: #333; /* Dark text on light background for readability */
-}
-
-.wish-text .love {
-    margin-top: 30px;
-    font-style: normal; /* Keep it non-italic for 'Cormorant Garamond' */
-    font-weight: 600; /* Use a bolder weight */
+    color: #333; 
 }
 
 .wish-text .signature {
     font-family: 'Great Vibes', cursive;
-    font-size: 2.5rem; /* Larger signature */
-    color: #880e4f; /* Elegant deep pink/fuchsia */
+    font-size: 2.5rem; 
+    color: #880e4f; 
+    /* Animation removed here, will be controlled by JS Typewriter effect */
+    opacity: 0; 
+}
+
+@keyframes softGlow {
+    0% { box-shadow: 0 0 10px rgba(255, 192, 203, 0.6), 0 0 20px rgba(255, 255, 255, 0.4); }
+    50% { box-shadow: 0 0 15px rgba(255, 192, 203, 1), 0 0 30px rgba(255, 255, 255, 0.7); }
+    100% { box-shadow: 0 0 10px rgba(255, 192, 203, 0.6), 0 0 20px rgba(255, 255, 255, 0.4); }
 }
 
 @keyframes fadeInText {
@@ -174,8 +196,8 @@ body, html {
 }
 
 
-/* Containers for effects */
-#particle-container, #balloon-container, #hearts-container {
+/* --- 4. Containers and Continuous Effects --- */
+#particle-container, #balloon-container, #hearts-container, #petal-container {
     position: absolute;
     top: 0;
     left: 0;
@@ -183,128 +205,99 @@ body, html {
     height: 100%;
     overflow: hidden;
     z-index: 1;
-    pointer-events: none; /* Crucial for user interaction */
+    pointer-events: none; 
 }
 
-/* Particle Animation (Softer Glitter) */
-.particle {
+/* Petal Rain Animation (New) */
+.petal {
     position: absolute;
-    background-color: #ffebee; /* Very light pink/white glitter */
-    border-radius: 50%;
-    opacity: 0;
-    animation: fly-up-soft linear forwards;
+    top: -50px; 
+    font-size: 1.8rem;
+    color: #ffdce0; 
+    opacity: 0.8;
+    animation: petal-fall-swirl linear forwards; 
 }
 
-@keyframes fly-up-soft {
+@keyframes petal-fall-swirl {
     0% {
-        transform: translateY(100vh) rotate(0deg);
+        transform: translateY(0) translateX(0) rotate(0deg);
         opacity: 0.8;
     }
     100% {
-        transform: translateY(-10vh) rotate(360deg);
+        transform: translateY(110vh) translateX(var(--sway-distance, 50px)) rotate(540deg); 
         opacity: 0;
     }
 }
 
-/* Balloon Animation (More Heart-like colors) */
-.balloon {
-    position: absolute;
-    width: 70px;
-    height: 90px;
-    border-radius: 50%;
-    bottom: -100px; 
-    opacity: 0.9;
-    /* Use a better easing function for a floating effect */
-    animation: float-up 10s ease-out forwards; 
-    box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.1); /* Inner shadow for depth */
-}
-.balloon::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 60px; /* Longer string */
-    background: rgba(255, 255, 255, 0.7);
-}
-
-@keyframes float-up {
-    0% {
-        transform: translateY(0) translateX(0) scale(1);
-    }
-    100% {
-        transform: translateY(-120vh) translateX(100px) scale(0.9); 
-    }
-}
-
-/* Heart (Love Rain) Animation - Consistent Aesthetic */
+/* Heart Rain Animation (Swaying) */
 .heart {
     position: absolute;
-    font-size: 2.5rem; /* Slightly larger hearts */
+    font-size: 2.5rem;
     top: -50px; 
-    color: #e57373; /* Muted, soft red/coral */
+    color: #e57373; 
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-    animation: fall-down-sway linear forwards; /* New keyframe for swaying */
+    animation: fall-down-sway linear forwards;
 }
 
 @keyframes fall-down-sway {
-    0% {
-        transform: translateY(0) translateX(0) rotate(0deg);
-    }
-    50% {
-        transform: translateY(55vh) translateX(20px) rotate(180deg); /* Slight sway to the side */
-    }
-    100% {
-        transform: translateY(110vh) translateX(-20px) rotate(360deg);
-    }
+    0% { transform: translateY(0) translateX(0) rotate(0); }
+    50% { transform: translateY(55vh) translateX(20px) rotate(180deg); } 
+    100% { transform: translateY(110vh) translateX(-20px) rotate(360deg); }
 }
 
-/* Burst Particles - New Effect */
+/* Burst Particles (With Trail Glow) */
 .burst-particle {
     position: absolute;
-    background-color: #ffccbc; /* Soft coral color for burst */
+    background-color: #ffccbc; 
     border-radius: 50%;
     opacity: 0;
     transform: scale(0);
-    animation: burst-out 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; /* Bouncy burst */
+    animation: burst-out 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; 
     z-index: 5; 
+    box-shadow: 0 0 10px 2px var(--particle-color, #ffccbc); /* Trail Glow */
 }
 
 @keyframes burst-out {
-    0% {
-        transform: scale(0) translate(0, 0);
-        opacity: 1;
-    }
-    20% {
-        transform: scale(1) translate(0, 0);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(0.05) translate(var(--x), var(--y));
-        opacity: 0;
-    }
+    0% { transform: scale(0) translate(0, 0); opacity: 1; }
+    20% { transform: scale(1) translate(0, 0); opacity: 1; }
+    100% { transform: scale(0.05) translate(var(--x), var(--y)); opacity: 0; }
 }
 
-/* Continuous Particle Blast Effect (Fountain) - New */
+/* Continuous Particle Blast (Fountain) */
 .continuous-particle {
     position: absolute;
     bottom: -20px; 
     border-radius: 50%;
     opacity: 0; 
-    animation: blast-up 4s ease-out forwards; /* Smoother easing */
+    animation: blast-up 4s ease-out forwards; 
     z-index: 2;
-    background-color: #ff99aa; /* A soft, gentle pink */
+    background-color: #ff99aa; 
     box-shadow: 0 0 5px #ff99aa;
 }
 
 @keyframes blast-up {
-    0% {
-        transform: translateY(0) scale(0.8);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-100vh) scale(0.5);
-        opacity: 0;
-    }
+    0% { transform: translateY(0) scale(0.8); opacity: 1; }
+    100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+}
+
+/* Containers */
+#particle-container, #balloon-container, #hearts-container, #petal-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none; 
+}
+
+/* Petal Rain Animation */
+.petal {
+    position: absolute;
+    top: -50px; 
+    font-size: 1.8rem;
+    color: #ffdce0; /* This color is often ignored for emojis, but necessary for text characters */
+    opacity: 0.8;
+    animation: petal-fall-swirl linear forwards; 
 }
