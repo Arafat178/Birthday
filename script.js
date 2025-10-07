@@ -78,40 +78,32 @@ document.addEventListener('DOMContentLoaded', () => {
         // Wait a small moment for the transition before starting
         setTimeout(type, 100); 
     }
-    
+
     // --- 4. New: Petal Rain Effect ---
-function createPetal() {
-    const petal = document.createElement('div');
-    petal.className = 'petal';
-    
-    // FIX: Ensure emojis are used as a string. Using "❤️" as it's a known heart/petal substitute.
-    const petalEmojis = ['🌸', '🌷', '🌹', '💖', '🌼', '❤️']; 
-    petal.innerHTML = petalEmojis[Math.floor(Math.random() * petalEmojis.length)]; 
+    function createPetal() {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        // Use a random romantic emoji/petal shape
+        petal.innerHTML = petalEmojis[Math.floor(Math.random() * petalEmojis.length)]; 
 
-    // Random position, size, and duration
-    petal.style.left = `${Math.random() * 100}%`;
-    petal.style.fontSize = `${Math.random() * 1.5 + 1.2}rem`;
+        // Random position, size, and duration
+        petal.style.left = `${Math.random() * 100}%`;
+        petal.style.fontSize = `${Math.random() * 1.5 + 1.2}rem`; // Vary size
 
-    const duration = Math.random() * 6 + 7;
-    petal.style.animationDuration = `${duration}s`;
-    petal.style.animationDelay = `${Math.random() * 2}s`;
-    
-    const swayDistance = Math.random() * 60 - 30;
-    petal.style.setProperty('--sway-distance', `${swayDistance}px`);
-    
-    // FIX: Ensure the container exists before appending
-    const petalContainer = document.getElementById('petal-container');
-    if (petalContainer) {
+        const duration = Math.random() * 6 + 7;
+        petal.style.animationDuration = `${duration}s`;
+        petal.style.animationDelay = `${Math.random() * 2}s`;
+        
+        // Set a random sway distance for the CSS keyframe
+        const swayDistance = Math.random() * 60 - 30; // -30px to 30px
+        petal.style.setProperty('--sway-distance', `${swayDistance}px`);
+        
         petalContainer.appendChild(petal);
         
         petal.addEventListener('animationend', () => {
             petal.remove();
         });
-    } else {
-        // Fallback: Use the hearts container if petals container is missing
-        document.getElementById('hearts-container').appendChild(petal); 
     }
-}
     
     function createContinuousPetals() {
         setInterval(createPetal, 400); // New petal every 400ms
