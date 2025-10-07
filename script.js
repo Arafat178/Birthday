@@ -1,50 +1,132 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const surpriseBox = document.getElementById('surprise-box');
+    // --- 1. Get Elements ---
+    const surpriseBox = document.getElementById('surprise-box'); // The main box container
+    const giftLid = document.getElementById('gift-lid'); // New ID for lid
+    const ribbonV = document.getElementById('ribbon-v'); // New ID for vertical ribbon
+    const ribbonH = document.getElementById('ribbon-h'); // New ID for horizontal ribbon
     const mainContent = document.getElementById('main-content');
     const birthdaySong = document.getElementById('birthday-song');
-
+    const signatureElement = document.getElementById('signature-text'); // New ID for signature
+    
+    // Containers for effects
     const particleContainer = document.getElementById('particle-container');
     const balloonContainer = document.getElementById('balloon-container');
     const heartsContainer = document.getElementById('hearts-container');
+    const petalContainer = document.getElementById('petal-container'); // New Petal Container
 
     const balloonColors = ['#ff69b4', '#ffd700', '#00bfff', '#9370db', '#32cd32', '#ff4500', '#ffa500'];
+    const petalEmojis = ['🌸', '🌷', '🌹', '💖', '🌼']; // Romantic Emojis/Petals
 
+    // --- 2. Main Click Handler ---
     surpriseBox.addEventListener('click', () => {
-        // Hide the surprise box
-        surpriseBox.style.display = 'none';
+        // A. Gift Box Opening Animation
+        if (giftLid) giftLid.classList.add('gift-lid-open');
+        if (ribbonV) ribbonV.classList.add('ribbon-released');
+        if (ribbonH) ribbonH.classList.add('ribbon-released');
 
-        // Show the main content
-        mainContent.classList.remove('hidden');
-        mainContent.style.display = 'flex';
+        // B. Show Main Content (Delayed to allow lid animation to start)
+        setTimeout(() => {
+            surpriseBox.style.display = 'none';
+            mainContent.classList.remove('hidden');
+            mainContent.style.display = 'flex';
+            document.body.classList.add('revealed'); // For background transition
+            
+            // Play the music
+            birthdaySong.play().catch(error => {
+                console.error("Audio autoplay was blocked:", error);
+            });
 
-        // Play the music
-        birthdaySong.play().catch(error => {
-            console.error("Audio autoplay was blocked by the browser:", error);
-        });
+            // Initial big burst of confetti
+            createFourCenterBurstParticles(); 
+            
+            // Typewriter effect for signature (Delayed further after pop-in)
+            setTimeout(() => {
+                if (signatureElement) {
+                    signatureElement.style.opacity = 1; 
+                    // Remove/override CSS animation to allow JS control
+                    signatureElement.style.animation = 'none'; 
+                    typeWriterEffect(signatureElement, 75); // 75ms speed
+                }
+            }, 3000); 
 
-        // 1. Initial big burst of confetti (now from 4 centers)
-        createFourCenterBurstParticles(); // <-- MODIFIED FUNCTION CALL
+        }, 500); // Start showing main content half a second after click
 
-        // 2. Continuous effects
+        // C. Continuous effects
         createContinuousBalloons();
         createContinuousHearts();
         createContinuousParticles();
+        createContinuousPetals(); // New Petal Rain
     });
 
+    // --- 3. New: Typewriter Effect Function ---
+    function typeWriterEffect(element, speed = 75) {
+        // Use textContent to safely handle the content (assuming signature is just text)
+        const text = element.textContent;
+        element.textContent = ''; 
+        let i = 0;
+        
+        // Ensure initial opacity is 1 for the effect
+        element.style.opacity = 1;
 
-    // MODIFIED FUNCTION: Creates burst particles from 4 centers
+        function type() {
+            if (i < text.length) {
+                element.textContent += text.charAt(i);
+                i++;
+                setTimeout(type, speed);
+            }
+        }
+        // Wait a small moment for the transition before starting
+        setTimeout(type, 100); 
+    }
+    
+    // --- 4. New: Petal Rain Effect ---
+function createPetal() {
+    const petal = document.createElement('div');
+    petal.className = 'petal';
+    
+    // FIX: Ensure emojis are used as a string. Using "❤️" as it's a known heart/petal substitute.
+    const petalEmojis = ['🌸', '🌷', '🌹', '💖', '🌼', '❤️']; 
+    petal.innerHTML = petalEmojis[Math.floor(Math.random() * petalEmojis.length)]; 
+
+    // Random position, size, and duration
+    petal.style.left = `${Math.random() * 100}%`;
+    petal.style.fontSize = `${Math.random() * 1.5 + 1.2}rem`;
+
+    const duration = Math.random() * 6 + 7;
+    petal.style.animationDuration = `${duration}s`;
+    petal.style.animationDelay = `${Math.random() * 2}s`;
+    
+    const swayDistance = Math.random() * 60 - 30;
+    petal.style.setProperty('--sway-distance', `${swayDistance}px`);
+    
+    // FIX: Ensure the container exists before appending
+    const petalContainer = document.getElementById('petal-container');
+    if (petalContainer) {
+        petalContainer.appendChild(petal);
+        
+        petal.addEventListener('animationend', () => {
+            petal.remove();
+        });
+    } else {
+        // Fallback: Use the hearts container if petals container is missing
+        document.getElementById('hearts-container').appendChild(petal); 
+    }
+}
+    
+    function createContinuousPetals() {
+        setInterval(createPetal, 400); // New petal every 400ms
+    }
+
+    // --- 5. Modified: Four Center Burst Particles (Added Trail Color) ---
     function createFourCenterBurstParticles() {
-        const BURST_COUNT_PER_CENTER = 75; // Number of particles per center
-        const TOTAL_BURST_COUNT = BURST_COUNT_PER_CENTER * 4; // Total particles in the burst
-
+        const BURST_COUNT_PER_CENTER = 75; 
         const boxRect = surpriseBox.getBoundingClientRect();
 
-        // Define 4 centers relative to the surprise box
         const centers = [
-            { x: boxRect.left + boxRect.width * 0.25, y: boxRect.top + boxRect.height * 0.25 }, // Top-left
-            { x: boxRect.left + boxRect.width * 0.75, y: boxRect.top + boxRect.height * 0.25 }, // Top-right
-            { x: boxRect.left + boxRect.width * 0.25, y: boxRect.top + boxRect.height * 0.75 }, // Bottom-left
-            { x: boxRect.left + boxRect.width * 0.75, y: boxRect.top + boxRect.height * 0.75 }  // Bottom-right
+            { x: boxRect.left + boxRect.width * 0.25, y: boxRect.top + boxRect.height * 0.25 },
+            { x: boxRect.left + boxRect.width * 0.75, y: boxRect.top + boxRect.height * 0.25 },
+            { x: boxRect.left + boxRect.width * 0.25, y: boxRect.top + boxRect.height * 0.75 },
+            { x: boxRect.left + boxRect.width * 0.75, y: boxRect.top + boxRect.height * 0.75 } 
         ];
 
         for (let c = 0; c < centers.length; c++) {
@@ -53,19 +135,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 const particle = document.createElement('div');
                 particle.className = 'burst-particle';
                 
-                // INCREASE PARTICLE SIZE HERE: (e.g., 6 to 12 pixels)
                 const size = Math.random() * 6 + 8; 
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
-                particle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
-
-                // Position at the current center
+                
+                // Set particle color and CSS variable for the trail glow
+                const particleColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+                particle.style.backgroundColor = particleColor;
+                particle.style.setProperty('--particle-color', particleColor); // Set CSS var
+                
                 particle.style.left = `${currentCenter.x}px`;
                 particle.style.top = `${currentCenter.y}px`;
 
-                // Random direction for explosion from this center
                 const angle = Math.random() * 2 * Math.PI;
-                const distance = Math.random() * 250 + 300; // INCREASE BURST DISTANCE (e.g., 100-350px)
+                const distance = Math.random() * 250 + 300; 
                 const targetX = Math.cos(angle) * distance;
                 const targetY = Math.sin(angle) * distance;
 
@@ -85,20 +168,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // MODIFIED FUNCTION: For continuous particle blast (fountain)
+    // --- 6. Other Continuous Effects (Kept for completeness) ---
+
     function createContinuousParticles() {
-        // We'll use setInterval to create particles continuously
         setInterval(() => {
             const particle = document.createElement('div');
             particle.className = 'continuous-particle';
 
-            // INCREASE CONTINUOUS PARTICLE SIZE HERE: (e.g., 5 to 12 pixels)
-            const size = Math.random() * 7 + 5; // partical size
+            const size = Math.random() * 7 + 5;
             particle.style.width = `${size}px`;
             particle.style.height = `${size}px`;
             particle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 75%)`;
 
-            // Spread them across the bottom of the screen
             particle.style.left = `${Math.random() * 100}%`; 
 
             const duration = Math.random() * 2 + 3;
@@ -110,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 particle.remove();
             }, duration * 1000);
 
-        }, 50); // INCREASE FREQUENCY: Create a new particle every 50ms for denser fountain
+        }, 50); 
     }
 
     function createBalloon() {
