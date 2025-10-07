@@ -1,4 +1,6 @@
-/* General Styling */
+/* General Styling - Softened Palette and Elegant Font */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Great+Vibes&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -8,77 +10,90 @@
 body, html {
     width: 100%;
     height: 100%;
-    overflow: hidden;
-    font-family: 'Poppins', sans-serif;
-    background-color: #f0f0f0; /* Initial background */
+    /* Allow scroll after content reveal if necessary, but keep for full-screen feel */
+    overflow: hidden; 
+    font-family: 'Cormorant Garamond', serif; /* Elegant serif font */
+    background-color: #fce4ec; /* Very soft pink/blush initial background */
 }
 
-/* Surprise Box Styling */
+/* Surprise Box Styling - Deeper, Romantic Tones */
 .gift-box {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 200px;
-    height: 200px;
-    background-color: #d84315; /* Box color */
+    width: 220px; /* Slightly larger */
+    height: 220px;
+    background-color: #a0522d; /* Soft, warm brown/sienna for the box */
     cursor: pointer;
-    transition: transform 0.3s ease;
-    animation: pulse 2s infinite;
+    /* Smoother transition */
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+    animation: gentle-pulse 3s infinite; /* Renamed animation for a softer feel */
+    border-radius: 8px; /* Slightly rounded edges */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .gift-box:hover {
-    transform: translate(-50%, -50%) scale(1.1);
+    transform: translate(-50%, -50%) scale(1.15) rotate(-3deg); /* More dramatic, gentle hover */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
 .gift-lid {
     position: absolute;
-    top: -40px;
+    top: -30px; /* Adjusted position */
     left: -10px;
-    width: 220px;
-    height: 50px;
-    background-color: #bf360c; /* Lid color */
+    width: 240px; /* Matching new box width + offset */
+    height: 40px;
+    background-color: #8b4513; /* Darker, richer brown for the lid */
     border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 .gift-ribbon-v, .gift-ribbon-h {
-    background-color: #ffca28; /* Ribbon color */
+    background-color: #ffb6c1; /* Light Pink/Rose Ribbon - Romantic */
     position: absolute;
+    box-shadow: 0 0 10px rgba(255, 182, 193, 0.7); /* Subtle glow */
 }
 
 .gift-ribbon-v {
-    top: -40px;
+    top: -30px;
     left: 50%;
     transform: translateX(-50%);
-    width: 30px;
-    height: 240px;
+    width: 25px; /* Slightly thinner ribbon */
+    height: 250px;
 }
 
 .gift-ribbon-h {
     top: 50%;
     left: -10px;
     transform: translateY(-50%);
-    width: 220px;
-    height: 30px;
+    width: 240px;
+    height: 25px;
 }
 
 .click-me-text {
     position: absolute;
-    bottom: -50px;
+    bottom: -60px;
     width: 100%;
     text-align: center;
-    font-family: 'Pacifico', cursive;
-    font-size: 1.5rem;
-    color: #333;
+    font-family: 'Great Vibes', cursive; /* Elegant script font */
+    font-size: 2rem; /* Larger and more inviting */
+    color: #4a2334; /* Deep, romantic burgundy/maroon */
+    animation: float-text 2s ease-in-out infinite alternate;
 }
 
-@keyframes pulse {
+@keyframes gentle-pulse {
     0% { transform: translate(-50%, -50%) scale(1); }
-    50% { transform: translate(-50%, -50%) scale(1.05); }
+    50% { transform: translate(-50%, -50%) scale(1.03); } /* Softer scale up */
     100% { transform: translate(-50%, -50%) scale(1); }
 }
 
-/* Main Content Styling */
+@keyframes float-text {
+    from { transform: translateY(0); }
+    to { transform: translateY(-5px); }
+}
+
+/* Main Content Styling - Ethereal and Warm */
 #main-content {
     display: flex;
     justify-content: center;
@@ -86,68 +101,76 @@ body, html {
     text-align: center;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+    /* Soft, ethereal gradient */
+    background: linear-gradient(135deg, #ffc0cb 0%, #ff7f7f 100%); /* Pink to Soft Red */
     color: white;
-    transition: opacity 1s ease-in-out;
+    transition: opacity 1.5s ease-in-out; /* Slower, more deliberate fade */
 }
 
 .hidden {
     opacity: 0;
     pointer-events: none;
-    display: none; /* Hide it completely initially */
+    /* Changed from display: none to visibility: hidden for smoother transition potential */
+    visibility: hidden; 
 }
 
 .wish-text {
     z-index: 10;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.3); /* Semi-transparent background for readability */
-    border-radius: 15px;
+    padding: 40px; /* More padding */
+    background: rgba(255, 255, 255, 0.2); /* Very light, semi-transparent background */
+    backdrop-filter: blur(5px); /* Soft blur effect */
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     animation: fadeInText 2s ease-in-out forwards;
 }
 
 .wish-text h1 {
-    font-family: 'Pacifico', cursive;
-    font-size: 3rem;
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
-    animation: popIn 1s 0.5s ease-out forwards;
+    font-family: 'Great Vibes', cursive; /* Main script font for impact */
+    font-size: 4rem; /* Larger */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Softer text shadow */
+    animation: popIn 1.5s 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; /* Bouncier, slower intro */
     opacity: 0;
+    color: #4a2334; /* Deep, romantic color */
 }
 
 .wish-text h2 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
-    animation: popIn 1s 1s ease-out forwards;
+    font-size: 3rem;
+    margin-bottom: 25px;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+    animation: popIn 1.5s 1.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     opacity: 0;
 }
 
 .wish-text p {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    max-width: 600px;
+    font-size: 1.4rem; /* Larger body text */
+    line-height: 1.8;
+    max-width: 700px;
     margin: 0 auto;
-    animation: popIn 1s 1.5s ease-out forwards;
+    animation: popIn 1.5s 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     opacity: 0;
+    color: #333; /* Dark text on light background for readability */
 }
 
 .wish-text .love {
-    margin-top: 20px;
-    font-style: italic;
+    margin-top: 30px;
+    font-style: normal; /* Keep it non-italic for 'Cormorant Garamond' */
+    font-weight: 600; /* Use a bolder weight */
 }
 
 .wish-text .signature {
-    font-family: 'Pacifico', cursive;
-    font-size: 1.5rem;
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem; /* Larger signature */
+    color: #880e4f; /* Elegant deep pink/fuchsia */
 }
 
 @keyframes fadeInText {
-    from { opacity: 0; transform: scale(0.8); }
+    from { opacity: 0; transform: scale(0.9); }
     to { opacity: 1; transform: scale(1); }
 }
 
 @keyframes popIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(30px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 
@@ -160,37 +183,40 @@ body, html {
     height: 100%;
     overflow: hidden;
     z-index: 1;
+    pointer-events: none; /* Crucial for user interaction */
 }
 
-/* Particle Animation */
+/* Particle Animation (Softer Glitter) */
 .particle {
     position: absolute;
-    background-color: white;
+    background-color: #ffebee; /* Very light pink/white glitter */
     border-radius: 50%;
     opacity: 0;
-    animation: fly-up linear forwards;
+    animation: fly-up-soft linear forwards;
 }
 
-@keyframes fly-up {
+@keyframes fly-up-soft {
     0% {
         transform: translateY(100vh) rotate(0deg);
-        opacity: 1;
+        opacity: 0.8;
     }
     100% {
-        transform: translateY(-10vh) rotate(720deg);
+        transform: translateY(-10vh) rotate(360deg);
         opacity: 0;
     }
 }
 
-/* Balloon Animation */
+/* Balloon Animation (More Heart-like colors) */
 .balloon {
     position: absolute;
     width: 70px;
     height: 90px;
     border-radius: 50%;
-    bottom: -100px; /* Start below the screen */
-    opacity: 0.8;
-    animation: float-up linear forwards;
+    bottom: -100px; 
+    opacity: 0.9;
+    /* Use a better easing function for a floating effect */
+    animation: float-up 10s ease-out forwards; 
+    box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.1); /* Inner shadow for depth */
 }
 .balloon::after {
     content: '';
@@ -199,70 +225,50 @@ body, html {
     left: 50%;
     transform: translateX(-50%);
     width: 2px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.5);
+    height: 60px; /* Longer string */
+    background: rgba(255, 255, 255, 0.7);
 }
 
 @keyframes float-up {
     0% {
-        transform: translateY(0) translateX(0);
+        transform: translateY(0) translateX(0) scale(1);
     }
     100% {
-        transform: translateY(-120vh) translateX(50px); /* Move up and slightly to the side */
+        transform: translateY(-120vh) translateX(100px) scale(0.9); 
     }
 }
 
-/* Heart (Love Rain) Animation */
+/* Heart (Love Rain) Animation - Consistent Aesthetic */
 .heart {
     position: absolute;
-    font-size: 2rem;
-    top: -50px; /* Start above the screen */
-    color: #ff4d4d;
-    animation: fall-down linear forwards;
+    font-size: 2.5rem; /* Slightly larger hearts */
+    top: -50px; 
+    color: #e57373; /* Muted, soft red/coral */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    animation: fall-down-sway linear forwards; /* New keyframe for swaying */
 }
 
-@keyframes fall-down {
+@keyframes fall-down-sway {
     0% {
-        transform: translateY(0) rotate(0);
+        transform: translateY(0) translateX(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(55vh) translateX(20px) rotate(180deg); /* Slight sway to the side */
     }
     100% {
-        transform: translateY(110vh) rotate(360deg);
+        transform: translateY(110vh) translateX(-20px) rotate(360deg);
     }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .wish-text h1 {
-        font-size: 2.5rem;
-    }
-    .wish-text h2 {
-        font-size: 2rem;
-    }
-    .wish-text p {
-        font-size: 1rem;
-    }
-    .gift-box {
-        width: 150px;
-        height: 150px;
-    }
-    .gift-lid {
-        width: 170px;
-        height: 40px;
-        top: -30px;
-    }
-    .gift-ribbon-v { height: 180px; top: -30px; }
-    .gift-ribbon-h { width: 170px; }
 }
 
 /* Burst Particles - New Effect */
 .burst-particle {
     position: absolute;
-    background-color: white;
+    background-color: #ffccbc; /* Soft coral color for burst */
     border-radius: 50%;
     opacity: 0;
     transform: scale(0);
-    animation: burst-out linear forwards;
-    z-index: 5; /* Ensure it's above other elements temporarily */
+    animation: burst-out 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; /* Bouncy burst */
+    z-index: 5; 
 }
 
 @keyframes burst-out {
@@ -270,12 +276,12 @@ body, html {
         transform: scale(0) translate(0, 0);
         opacity: 1;
     }
-    10% {
+    20% {
         transform: scale(1) translate(0, 0);
         opacity: 1;
     }
     100% {
-        transform: scale(0.2) translate(var(--x), var(--y)); /* Use CSS variables for random direction */
+        transform: scale(0.05) translate(var(--x), var(--y));
         opacity: 0;
     }
 }
@@ -283,20 +289,22 @@ body, html {
 /* Continuous Particle Blast Effect (Fountain) - New */
 .continuous-particle {
     position: absolute;
-    bottom: -20px; /* Start from just below the screen */
+    bottom: -20px; 
     border-radius: 50%;
-    opacity: 0; /* Start invisible */
-    animation: blast-up linear forwards;
+    opacity: 0; 
+    animation: blast-up 4s ease-out forwards; /* Smoother easing */
     z-index: 2;
+    background-color: #ff99aa; /* A soft, gentle pink */
+    box-shadow: 0 0 5px #ff99aa;
 }
 
 @keyframes blast-up {
     0% {
-        transform: translateY(0) scale(0.5);
+        transform: translateY(0) scale(0.8);
         opacity: 1;
     }
     100% {
-        transform: translateY(-100vh) scale(1);
+        transform: translateY(-100vh) scale(0.5);
         opacity: 0;
     }
 }
