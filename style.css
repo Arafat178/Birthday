@@ -1,0 +1,302 @@
+/* General Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f0f0; /* Initial background */
+}
+
+/* Surprise Box Styling */
+.gift-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    background-color: #d84315; /* Box color */
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    animation: pulse 2s infinite;
+}
+
+.gift-box:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.gift-lid {
+    position: absolute;
+    top: -40px;
+    left: -10px;
+    width: 220px;
+    height: 50px;
+    background-color: #bf360c; /* Lid color */
+    border-radius: 5px;
+}
+
+.gift-ribbon-v, .gift-ribbon-h {
+    background-color: #ffca28; /* Ribbon color */
+    position: absolute;
+}
+
+.gift-ribbon-v {
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 240px;
+}
+
+.gift-ribbon-h {
+    top: 50%;
+    left: -10px;
+    transform: translateY(-50%);
+    width: 220px;
+    height: 30px;
+}
+
+.click-me-text {
+    position: absolute;
+    bottom: -50px;
+    width: 100%;
+    text-align: center;
+    font-family: 'Pacifico', cursive;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+@keyframes pulse {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.05); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+/* Main Content Styling */
+#main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+    color: white;
+    transition: opacity 1s ease-in-out;
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+    display: none; /* Hide it completely initially */
+}
+
+.wish-text {
+    z-index: 10;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3); /* Semi-transparent background for readability */
+    border-radius: 15px;
+    animation: fadeInText 2s ease-in-out forwards;
+}
+
+.wish-text h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 3rem;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    animation: popIn 1s 0.5s ease-out forwards;
+    opacity: 0;
+}
+
+.wish-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    animation: popIn 1s 1s ease-out forwards;
+    opacity: 0;
+}
+
+.wish-text p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+    animation: popIn 1s 1.5s ease-out forwards;
+    opacity: 0;
+}
+
+.wish-text .love {
+    margin-top: 20px;
+    font-style: italic;
+}
+
+.wish-text .signature {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.5rem;
+}
+
+@keyframes fadeInText {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Containers for effects */
+#particle-container, #balloon-container, #hearts-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* Particle Animation */
+.particle {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    opacity: 0;
+    animation: fly-up linear forwards;
+}
+
+@keyframes fly-up {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-10vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* Balloon Animation */
+.balloon {
+    position: absolute;
+    width: 70px;
+    height: 90px;
+    border-radius: 50%;
+    bottom: -100px; /* Start below the screen */
+    opacity: 0.8;
+    animation: float-up linear forwards;
+}
+.balloon::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+@keyframes float-up {
+    0% {
+        transform: translateY(0) translateX(0);
+    }
+    100% {
+        transform: translateY(-120vh) translateX(50px); /* Move up and slightly to the side */
+    }
+}
+
+/* Heart (Love Rain) Animation */
+.heart {
+    position: absolute;
+    font-size: 2rem;
+    top: -50px; /* Start above the screen */
+    color: #ff4d4d;
+    animation: fall-down linear forwards;
+}
+
+@keyframes fall-down {
+    0% {
+        transform: translateY(0) rotate(0);
+    }
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .wish-text h1 {
+        font-size: 2.5rem;
+    }
+    .wish-text h2 {
+        font-size: 2rem;
+    }
+    .wish-text p {
+        font-size: 1rem;
+    }
+    .gift-box {
+        width: 150px;
+        height: 150px;
+    }
+    .gift-lid {
+        width: 170px;
+        height: 40px;
+        top: -30px;
+    }
+    .gift-ribbon-v { height: 180px; top: -30px; }
+    .gift-ribbon-h { width: 170px; }
+}
+
+/* Burst Particles - New Effect */
+.burst-particle {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(0);
+    animation: burst-out linear forwards;
+    z-index: 5; /* Ensure it's above other elements temporarily */
+}
+
+@keyframes burst-out {
+    0% {
+        transform: scale(0) translate(0, 0);
+        opacity: 1;
+    }
+    10% {
+        transform: scale(1) translate(0, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.2) translate(var(--x), var(--y)); /* Use CSS variables for random direction */
+        opacity: 0;
+    }
+}
+
+/* Continuous Particle Blast Effect (Fountain) - New */
+.continuous-particle {
+    position: absolute;
+    bottom: -20px; /* Start from just below the screen */
+    border-radius: 50%;
+    opacity: 0; /* Start invisible */
+    animation: blast-up linear forwards;
+    z-index: 2;
+}
+
+@keyframes blast-up {
+    0% {
+        transform: translateY(0) scale(0.5);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) scale(1);
+        opacity: 0;
+    }
+}
