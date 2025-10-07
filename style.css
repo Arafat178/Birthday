@@ -134,7 +134,7 @@ body.revealed {
 }
 
 .wish-text {
-    z-index: 10;
+    z-index: 20;
     padding: 40px; 
     background: rgba(255, 255, 255, 0.2); 
     backdrop-filter: blur(5px); 
@@ -146,7 +146,7 @@ body.revealed {
 
 .wish-text h1 {
     font-family: 'Great Vibes', cursive; 
-    font-size: 4rem; 
+    font-size: 2.3rem; 
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); 
     animation: popIn 1.5s 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; 
     opacity: 0;
@@ -154,17 +154,17 @@ body.revealed {
 }
 
 .wish-text h2 {
-    font-size: 3rem;
+    font-size: 2rem;
     margin-bottom: 25px;
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+    text-shadow: 0 0 8px rgba(238, 209, 209, 0.7);
     animation: popIn 1.5s 1.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     opacity: 0;
 }
 
 .wish-text p {
-    font-size: 1.4rem; 
-    line-height: 1.8;
-    max-width: 700px;
+    font-size: 1.2rem; 
+    line-height: 1.5;
+    max-width: 550px;
     margin: 0 auto;
     animation: popIn 1.5s 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     opacity: 0;
@@ -173,7 +173,7 @@ body.revealed {
 
 .wish-text .signature {
     font-family: 'Great Vibes', cursive;
-    font-size: 2.5rem; 
+    font-size: 2rem; 
     color: #880e4f; 
     /* Animation removed here, will be controlled by JS Typewriter effect */
     opacity: 0; 
