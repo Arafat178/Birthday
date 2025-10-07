@@ -15,7 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const petalContainer = document.getElementById('petal-container'); // New Petal Container
 
     const balloonColors = ['#ff69b4', '#ffd700', '#00bfff', '#9370db', '#32cd32', '#ff4500', '#ffa500'];
-    const petalEmojis = ['🌸', '🌷', '🌹', '💖', '🌼']; // Romantic Emojis/Petals
+    const petalEmojis = [
+  '🌸', '🌷', '🌹', '🌼',
+  'my love', 'meri janu', 'love', 'meri bibi',
+  'sweetheart', 'my girl', 'honey', '💞', '💘', '😘', '🥰', 'cutie', 'angel'
+];
 
     // --- 2. Main Click Handler ---
     surpriseBox.addEventListener('click', () => {
@@ -220,3 +224,4 @@ document.addEventListener('DOMContentLoaded', () => {
         setInterval(createHeart, 300);
     }
 });
+
